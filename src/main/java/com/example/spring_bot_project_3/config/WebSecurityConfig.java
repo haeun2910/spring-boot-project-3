@@ -35,11 +35,11 @@ public class WebSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/error", "/token/issue", "/test/**")
-                            .permitAll();
+                    auth.requestMatchers("/error", "/token/issue", "/test/**","/views/**").hasRole("USER");
                     auth.requestMatchers("/users/signup","/users/signin").anonymous();
-                    auth.requestMatchers("/users/get-user-info","/users/update","/users/profile-img");
+                    auth.requestMatchers("/users/get-user-info","/users/update","/users/profile-img").authenticated();
                     auth.requestMatchers("/admin/**").hasRole("ADMIN");
+                    auth.requestMatchers("/shops/my-shop/**").hasRole("BUSINESS");
                     auth.anyRequest().authenticated();
 
                 })
