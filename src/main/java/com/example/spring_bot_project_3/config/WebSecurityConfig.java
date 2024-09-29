@@ -38,7 +38,10 @@ public class WebSecurityConfig {
                     auth.requestMatchers("/error", "/token/issue", "/test/**")
                             .permitAll();
                     auth.requestMatchers("/users/signup","/users/signin").anonymous();
+                    auth.requestMatchers("/users/get-user-info","/users/update","/users/profile-img");
+                    auth.requestMatchers("/admin/**").hasRole("ADMIN");
                     auth.anyRequest().authenticated();
+
                 })
                 .addFilterBefore(
                         new JwtTokenFilter(
